@@ -1,0 +1,43 @@
+.App-header {
+  display: grid;
+  grid-template-columns: 15% auto;
+  background-color: #cc343f;
+}
+
+.App-header-title{
+  padding: 12px;
+  text-align: center;
+  display: block;
+  transition: all .5s ease;
+}
+
+
+.App-header-title-kanji{
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: -100%;
+  text-align: center;
+  visibility: hidden;
+  padding: 15px 0;
+  background-color: #191C1F;
+  transition: all .5s cubic-bezier(.95,-0.6,.73,1.73);
+}
+
+.App-header-title-kanji img{
+  height: 65px;
+}
+
+.App-logo{
+  overflow: hidden;
+  position: relative;
+}
+
+.App-logo:hover .App-header-title{
+  visibility: hidden;
+}
+
+.App-logo:hover .App-header-title-kanji{
+  visibility: visible;
+  left: 0;
+}
