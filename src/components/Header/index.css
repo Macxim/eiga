@@ -19,7 +19,7 @@
   left: -100%;
   text-align: center;
   visibility: hidden;
-  padding: 15px 0;
+  padding: 16px 0;
   background-color: #191C1F;
   transition: all .5s cubic-bezier(.95,-0.6,.73,1.73);
 }

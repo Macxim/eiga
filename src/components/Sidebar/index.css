@@ -1,0 +1,42 @@
+.App-sidebar{
+}
+
+.sidebar-menu{
+  list-style-type: none;
+  margin: 0;
+  padding: 25px 0;
+  border-bottom: 1px solid #222B31;
+  font-size: 14px;
+}
+
+.sidebar-menu__item{
+  position: relative;
+}
+
+.sidebar-menu__item a{
+  color: #FFF;
+  text-decoration: none;
+  padding: 15px 25px;
+  display: block;
+  transition: all .3s ease;
+}
+
+.sidebar-menu__item a.is-active,
+.sidebar-menu__item:hover a{
+  background-color: #222B31;
+  color: #FF424F;
+}
+
+.sidebar-menu__item a.is-active:after{
+  content: '→';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.6);
+  transition: color .3s ease;
+}
+
+.sidebar-menu__item a.is-active:hover:after{
+  color: rgba(255, 255, 255, 0.8);
+}
