@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { API_KEY, PATH_BASE, PATH_POPULAR, PATH_MOVIE } from '../../api';
+import List from '../../components/List';
 
 import './index.css';
 
@@ -28,15 +29,20 @@ class Main extends Component {
     this.setState({
       popularMovies: popularMovies
     })
-
-    console.log(this.state);
   }
 
   render () {
 
+    const { popularMovies } = this.state;
+    const { results } = popularMovies;
+    console.log({popularMovies, results});
+
     return (
       <div>
         <h1 className="App-main-title">{this.props.title}</h1>
+        { results &&
+          <List list={results} />
+        }
       </div>
     );
 
