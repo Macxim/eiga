@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { PATH_POPULAR } from './api';
+
 
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -16,7 +18,7 @@ class App extends Component {
             <Sidebar />
           </div>
           <div className="App-content-wrapper">
-            <Main title="Popular"/>
+            <Main title="Popular" section={PATH_POPULAR} />
           </div>
         </div>
       </div>
