@@ -20,7 +20,6 @@ class Main extends Component {
   }
 
   getMovies = (section) => {
-    console.log(`${PATH_BASE}${PATH_MOVIE}${section}`);
     fetch(`${PATH_BASE}${PATH_MOVIE}${section}?language=en-US&api_key=${API_KEY}`)
     .then(response => response.json())
     .then(movies => this.setMovies(movies));
