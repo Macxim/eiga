@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { PATH_POPULAR } from './api';
 
+import { PATH_POPULAR, PATH_TOP_RATED, PATH_UPCOMING } from './api';
 
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -19,6 +19,8 @@ class App extends Component {
           </div>
           <div className="App-content-wrapper">
             <Main title="Popular" section={PATH_POPULAR} />
+            <Main title="Top Rated" section={PATH_POPULAR} />
+            <Main title="Coming Soon" section={PATH_UPCOMING} />
           </div>
         </div>
       </div>
