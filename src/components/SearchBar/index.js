@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { API_KEY, PATH_BASE, PATH_SEARCH, PATH_MOVIE } from '../../api';
 
 import './index.css';
@@ -51,6 +52,12 @@ class SearchBar extends Component {
             value={searchTerm}
           />
         </form>
+        {result &&
+          <Redirect to={{
+            pathname: `/search?query=${searchTerm}`,
+            state: { result, searchTerm }
+          }}/>
+        }
       </div>
     );
 
