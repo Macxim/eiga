@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_KEY, PATH_BASE, PATH_SEARCH, PATH_MOVIE } from '../../api';
 
 import './index.css';
 
@@ -9,8 +10,17 @@ class SearchBar extends Component {
 
     this.state = {
       searchTerm: '',
+      result: null
     };
 
+  }
+
+  getSearchMovies = (searchTerm) => {
+    fetch(`${PATH_BASE}${PATH_SEARCH}${PATH_MOVIE}?api_key=${API_KEY}&query=${searchTerm}`)
+    .then(response => response.json())
+    .then(result => this.setState({
+      result
+    }));
   }
 
   handleSearchChange = (e) => {
@@ -22,14 +32,13 @@ class SearchBar extends Component {
   handleSearchSubmit = (e) => {
     e.preventDefault();
     const { searchTerm } = this.state;
-
-    // Do something with `searchTerm`
-    console.log(searchTerm);
+    this.getSearchMovies(searchTerm);
   }
 
   render () {
 
-    const { searchTerm } = this.state;
+    const { searchTerm, result } = this.state;
+    console.log(this.state);
 
     return (
       <div className="SearchBar-wrapper">
