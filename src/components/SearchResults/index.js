@@ -3,12 +3,7 @@ import List from '../../components/List';
 
 const SearchResults = ({ location }) => {
 
-  const result = location.state;
-
-  // Get `query` object
-  // https://github.com/ReactTraining/react-router/issues/4410#issuecomment-316239553
-  const query = new URLSearchParams(location.search)
-  const searchTerm = query.get('query')
+  const { result, searchTerm} = location.state;
 
   return (
     <div>

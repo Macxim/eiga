@@ -20,9 +20,10 @@ class SearchBar extends Component {
     fetch(`${PATH_BASE}${PATH_SEARCH}${PATH_MOVIE}?api_key=${API_KEY}&query=${searchTerm}`)
     .then(response => response.json())
     .then(result =>
-      this.props.history.push(
-        `/search?query=${searchTerm}`,
-        result
+      this.props.history.push({
+        pathname: `/search?query=${searchTerm}`,
+        state: { result, searchTerm }
+        }
       )
     );
   }
