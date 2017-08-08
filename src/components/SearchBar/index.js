@@ -22,7 +22,7 @@ class SearchBar extends Component {
     .then(result =>
       this.props.history.push({
         pathname: `/search?query=${searchTerm}`,
-        state: { result, searchTerm }
+        state: { result }
         }
       )
     );
