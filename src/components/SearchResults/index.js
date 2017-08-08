@@ -1,7 +1,7 @@
 import React from 'react';
 import List from '../../components/List';
 
-const SearchResults = ({ match, location }) => {
+const SearchResults = ({ location }) => {
 
   const result = location.state;
 
