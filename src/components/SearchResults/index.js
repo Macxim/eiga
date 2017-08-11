@@ -23,10 +23,7 @@ class SearchResults extends Component {
     const TERM = searchTerm.replace(/\s/g, '+');
     fetch(`${PATH_BASE}${PATH_SEARCH}${PATH_MOVIE}?api_key=${API_KEY}&query=${TERM}&${PATH_PAGE}${page}`)
     .then(response => response.json())
-    .then(movies => {
-      this.setSearchMovies(movies)
-  });
-
+    .then(movies => { this.setSearchMovies(movies) });
   }
 
   setSearchMovies = (movies) => {
