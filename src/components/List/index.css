@@ -65,4 +65,5 @@
   left: 50%;
   transform: translateX(-50%);
   font-size: 13px;
+  z-index: 1;
 }
