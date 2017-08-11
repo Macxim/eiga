@@ -19,6 +19,37 @@
   box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.4);
 }
 
+
+.list__movie-no_image_holder{
+  display: inline-block;
+  background-color: #dbdbdb;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.list__movie-no_image_holder span{
+  color: #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.list__movie-no_image_holder:before{
+  content: "No image available";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 24px;
+  border: 1px dotted #b5b5b5;
+  padding: 10px;
+  color: #b5b5b5;
+  text-align: center;
+}
+
 .list__movie-title{
   display: block;
   font-size: 16px;
