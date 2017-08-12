@@ -15,8 +15,12 @@ class SearchResults extends Component {
 
   }
 
-  componentDidMount = () => {
-    this.getSearchMovies(this.props.match.params.searchTerm, DEFAULT_PAGE)
+  // Parsing of query strings in React-Router v4
+  // https://github.com/ReactTraining/react-router/issues/4410#issuecomment-316239553
+  getQueryStrings = (term) => {
+    const query = new URLSearchParams(term);
+    const searchTerm = query.get('query');
+    return searchTerm;
   }
 
   getSearchMovies = (searchTerm, page) => {
@@ -44,11 +48,19 @@ class SearchResults extends Component {
     })
   }
 
+  componentDidMount = () => {
+    this.getSearchMovies(this.getQueryStrings(this.props.location.search), DEFAULT_PAGE)
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    this.getSearchMovies(this.getQueryStrings(nextProps.location.search), DEFAULT_PAGE)
+  }
+
   render () {
 
     const { movies } = this.state;
     const { page } = movies;
-    const searchTerm = this.props.match.params.searchTerm;
+    const searchTerm = this.getQueryStrings(this.props.location.search);
 
     return (
       <div>

@@ -24,7 +24,8 @@ class SearchBar extends Component {
     e.preventDefault();
     const { searchTerm } = this.state;
     this.props.history.push({
-      pathname: `/search?query=${searchTerm}`,
+      pathname: `/search`,
+      search: `?query=${searchTerm}`
       }
     )
   }
