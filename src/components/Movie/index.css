@@ -1,0 +1,22 @@
+.movie-backdrop{
+  opacity: 0.1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.movie-wrapper{
+  display: flex;
+  align-items: top;
+  position: relative;
+}
+
+.movie-poster{
+  border: 4px solid #FFF;
+  box-shadow: 0px 1px 8px 1px rgba(255, 255, 255, 0.2);
+}
+
+.movie-data{
+  padding: 0 25px;
+}

@@ -7,6 +7,8 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Main from './components/Main';
 import SearchResults from './components/SearchResults';
+import Movie from './components/Movie';
+
 
 import './App.css';
 
@@ -25,6 +27,7 @@ class App extends Component {
                 <Route exact path="/top-rated" render={()=><Main title="Top Rated" section={PATH_TOP_RATED} />}/>
                 <Route exact path="/coming-soon" render={()=><Main title="Coming Soon" section={PATH_UPCOMING} />}/>
                 <Route path="/search" component={SearchResults}/>
+                <Route path="/movie/:id-:title" component={Movie}/>
               </div>
           </div>
         </div>
