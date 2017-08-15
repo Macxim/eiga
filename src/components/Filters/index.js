@@ -19,8 +19,10 @@ class Filters extends Component {
 
   render () {
 
+    const appFiltersClasses = `App-filters ${this.props.filtersOpen ?  'is-open' : '' }`;
+
     return (
-      <div className={"App-filters " + (this.props.filtersOpen ? 'is-open' : '')}>
+      <div className={appFiltersClasses}>
         <ul className="filters-list">
           <li className="filters-list__item">
             <span className="filter-label">

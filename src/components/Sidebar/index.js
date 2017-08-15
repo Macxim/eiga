@@ -9,6 +9,11 @@ const Sidebar = () => {
       <ul className="sidebar-menu">
         <li className="sidebar-menu__item">
           <NavLink exact={true} to="/" activeClassName="is-active">
+            Discover
+          </NavLink>
+        </li>
+        <li className="sidebar-menu__item">
+          <NavLink exact={true} to="/popular" activeClassName="is-active">
             Popular
           </NavLink>
         </li>
