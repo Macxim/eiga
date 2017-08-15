@@ -21,7 +21,8 @@ class Discover extends Component {
   }
 
   getMovies = (page) => {
-    fetch(`${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}&primary_release_year=2017&vote_average.gte=8&vote_average.lte=10&sort_by=vote_average.asc`)
+    console.log(`${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}&primary_release_year=2017&vote_average.gte=${this.props.filters.rating.min}&vote_average.lte=${this.props.filters.rating.max}&sort_by=vote_average.asc`);
+    fetch(`${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}&primary_release_year=2017&vote_average.gte=${this.props.filters.rating.min}&vote_average.lte=${this.props.filters.rating.max}&sort_by=vote_average.asc`)
     .then(response => response.json())
     .then(movies => {
       this.setMovies(movies)

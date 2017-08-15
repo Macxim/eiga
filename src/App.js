@@ -21,6 +21,12 @@ class App extends Component {
 
     this.state = {
       filtersOpen: true,
+      filters: {
+        rating: {
+          min: 0,
+          max: 10
+        }
+      }
     };
 
   }
@@ -38,10 +44,10 @@ class App extends Component {
           <div className="App-main">
             <div className="App-sidebar-wrapper">
               <Sidebar />
-              <Filters filtersOpen={this.state.filtersOpen} />
+              <Filters filtersOpen={this.state.filtersOpen} filters={this.state.filters} />
             </div>
               <div className="App-content-wrapper">
-                <Route exact path="/" render={()=><Discover title="Discover" toggleFilters={this.toggleFilters} />}/>
+                <Route exact path="/" render={()=><Discover title="Discover" toggleFilters={this.toggleFilters} filters={this.state.filters} />}/>
                 <Route exact path="/popular" render={()=><Main title="Popular" section={PATH_POPULAR} />}/>
                 <Route exact path="/top-rated" render={()=><Main title="Top Rated" section={PATH_TOP_RATED} />}/>
                 <Route exact path="/coming-soon" render={()=><Main title="Coming Soon" section={PATH_UPCOMING} />}/>

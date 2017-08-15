@@ -9,9 +9,11 @@ class Filters extends Component {
     super(props);
 
     this.state = {
-      valueRating: {
-        min: 0,
-        max: 10
+      filters: {
+        rating: {
+          min: 0,
+          max: 10
+        }
       }
     };
 
@@ -26,13 +28,13 @@ class Filters extends Component {
         <ul className="filters-list">
           <li className="filters-list__item">
             <span className="filter-label">
-              Rating from {this.state.valueRating.min} to {this.state.valueRating.max}
+              Rating from {this.state.filters.rating.min} to {this.state.filters.rating.max}
             </span>
             <InputRange
               maxValue={10}
               minValue={0}
-              value={this.state.valueRating}
-              onChange={value => this.setState({ valueRating: value })}
+              value={this.state.filters.rating}
+              onChange={value => this.setState({ filters: { rating: value } })}
               onChangeComplete={value => console.log(value)} />
           </li>
         </ul>
