@@ -5,18 +5,8 @@ import './index.css';
 
 class Filters extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      filters: {
-        rating: {
-          min: 0,
-          max: 10
-        }
-      }
-    };
-
+  updateFilters = (value) => {
+    this.props.updateFilters(value);
   }
 
   render () {
@@ -28,14 +18,13 @@ class Filters extends Component {
         <ul className="filters-list">
           <li className="filters-list__item">
             <span className="filter-label">
-              Rating from {this.state.filters.rating.min} to {this.state.filters.rating.max}
+              Rating from {this.props.filters.rating.min} to {this.props.filters.rating.max}
             </span>
             <InputRange
               maxValue={10}
               minValue={0}
-              value={this.state.filters.rating}
-              onChange={value => this.setState({ filters: { rating: value } })}
-              onChangeComplete={value => console.log(value)} />
+              value={this.props.filters.rating}
+              onChange={value => {this.updateFilters(value)}} />
           </li>
         </ul>
       </div>
