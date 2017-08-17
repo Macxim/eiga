@@ -25,7 +25,16 @@ class Discover extends Component {
   }
 
   getMovies = (page) => {
-    fetch(`${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}&primary_release_year=${this.props.filters.year}&vote_average.gte=${this.props.filters.rating.min}&vote_average.lte=${this.props.filters.rating.max}&sort_by=vote_average.asc`)
+    fetch(`
+      ${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?api_key=${API_KEY}&${PATH_PAGE}${page}
+      &language=en-US
+      &primary_release_year=${this.props.filters.year}
+      &vote_average.gte=${this.props.filters.rating.min}
+      &vote_average.lte=${this.props.filters.rating.max}
+      &with_runtime.gte=${this.props.filters.runtime.min}
+      &with_runtime.lte=${this.props.filters.runtime.max}
+      &sort_by=vote_average.desc`
+    )
     .then(response => response.json())
     .then(movies => {
       this.setMovies(movies)
@@ -61,7 +70,7 @@ class Discover extends Component {
     return (
       <div>
         <h1 className="App-main-title">{this.props.title}</h1>
-        <p>Movies with ratings from {this.props.filters.rating.min} to {this.props.filters.rating.max} released in {this.props.filters.year}.</p>
+        <p>Movies with ratings from {this.props.filters.rating.min} to {this.props.filters.rating.max} released in {this.props.filters.year} with runtime from {this.props.filters.runtime.min} to {this.props.filters.runtime.max} minutes.</p>
         <Button className="" onClick={this.toggleFilters} text="Filters" />
         { results &&
           <List list={results} />

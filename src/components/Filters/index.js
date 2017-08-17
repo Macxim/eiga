@@ -19,6 +19,16 @@ class Filters extends Component {
 
           <li className="filters-list__item">
             <span className="filter-label">
+              Released in {this.props.filters.year}
+            </span>
+            <Dropdown
+              options={rangeDate(1900, new Date().getFullYear())}
+              value={`${this.props.filters.year}`}
+              onChange={year => this.props.updateFilters({ ...this.props.filters, year: year.value })} />
+          </li>
+
+          <li className="filters-list__item">
+            <span className="filter-label">
               Rating from {this.props.filters.rating.min} to {this.props.filters.rating.max}
             </span>
             <InputRange
@@ -30,12 +40,13 @@ class Filters extends Component {
 
           <li className="filters-list__item">
             <span className="filter-label">
-              Released in {this.props.filters.year}
+              Duration from {this.props.filters.runtime.min} to {this.props.filters.runtime.max} (minutes)
             </span>
-            <Dropdown
-              options={rangeDate(1900, new Date().getFullYear())}
-              value={`${this.props.filters.year}`}
-              onChange={year => this.props.updateFilters({ ...this.props.filters, year: year.value })} />
+            <InputRange
+              minValue={0}
+              maxValue={500}
+              value={this.props.filters.runtime}
+              onChange={runtime => this.props.updateFilters({ ...this.props.filters, runtime: runtime })} />
           </li>
 
         </ul>

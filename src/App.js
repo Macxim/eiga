@@ -23,8 +23,12 @@ class App extends Component {
       filtersOpen: true,
       filters: {
         rating: {
-          min: 0,
+          min: 5,
           max: 10
+        },
+        runtime: {
+          min: 45,
+          max: 250
         },
         year: new Date().getFullYear()
       }
