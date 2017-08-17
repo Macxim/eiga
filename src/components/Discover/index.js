@@ -20,12 +20,12 @@ class Discover extends Component {
     this.getMovies(DEFAULT_PAGE);
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  componentDidUpdate = (prevProps, prevState) => {
     this.getMovies(DEFAULT_PAGE)
   }
 
   getMovies = (page) => {
-    fetch(`${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}&primary_release_year=2017&vote_average.gte=${this.props.filters.rating.min}&vote_average.lte=${this.props.filters.rating.max}&sort_by=vote_average.asc`)
+    fetch(`${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}&primary_release_year=${this.props.filters.year}&vote_average.gte=${this.props.filters.rating.min}&vote_average.lte=${this.props.filters.rating.max}&sort_by=vote_average.asc`)
     .then(response => response.json())
     .then(movies => {
       this.setMovies(movies)
@@ -61,6 +61,7 @@ class Discover extends Component {
     return (
       <div>
         <h1 className="App-main-title">{this.props.title}</h1>
+        <p>Movies with ratings from {this.props.filters.rating.min} to {this.props.filters.rating.max} released in {this.props.filters.year}.</p>
         <Button className="" onClick={this.toggleFilters} text="Filters" />
         { results &&
           <List list={results} />

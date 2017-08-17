@@ -25,7 +25,8 @@ class App extends Component {
         rating: {
           min: 0,
           max: 10
-        }
+        },
+        year: new Date().getFullYear()
       }
     };
 
@@ -35,16 +36,7 @@ class App extends Component {
     this.setState({filtersOpen: !this.state.filtersOpen});
   }
 
-  updateFilters = (value) => {
-    this.setState({
-      filters: {
-        rating: {
-          min: value.min,
-          max: value.max
-        }
-      }
-    });
-  }
+  updateStateWithFilters = (filters) => { this.setState({ filters }) }
 
   render() {
     return (
@@ -54,7 +46,7 @@ class App extends Component {
           <div className="App-main">
             <div className="App-sidebar-wrapper">
               <Sidebar />
-              <Filters filtersOpen={this.state.filtersOpen} filters={this.state.filters} updateFilters={this.updateFilters} />
+              <Filters filtersOpen={this.state.filtersOpen} filters={this.state.filters} updateFilters={this.updateStateWithFilters} />
             </div>
               <div className="App-content-wrapper">
                 <Route exact path="/" render={()=><Discover title="Discover" toggleFilters={this.toggleFilters} filters={this.state.filters} />}/>
