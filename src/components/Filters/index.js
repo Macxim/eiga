@@ -12,6 +12,14 @@ class Filters extends Component {
 
     const appFiltersClasses = `App-filters ${this.props.filtersOpen ?  'is-open' : '' }`;
     const rangeDate = (start, end) => Array.from({length: (end - start)}, (value, key) => key + start+1).reverse();
+    const sort_by = [
+      { value: 'popularity', label: 'Popularity' },
+      { value: 'vote_average', label: 'Rating' },
+      { value: 'original_title', label: 'Original Title' }];
+    const sort_by_order = [
+      { value: 'asc', label: 'Ascending' },
+      { value: 'desc', label: 'Descending' }
+    ];
 
     return (
       <div className={appFiltersClasses}>
@@ -47,6 +55,20 @@ class Filters extends Component {
               maxValue={500}
               value={this.props.filters.runtime}
               onChange={runtime => this.props.updateFilters({ ...this.props.filters, runtime: runtime })} />
+          </li>
+
+          <li className="filters-list__item">
+            <span className="filter-label">
+              Sort by {this.props.filters.sort_by.label} - {this.props.filters.order.label}
+            </span>
+            <Dropdown
+              options={sort_by}
+              value={`${this.props.filters.sort_by.label}`}
+              onChange={sort_by => this.props.updateFilters({ ...this.props.filters, sort_by: sort_by })} />
+            <Dropdown
+              options={sort_by_order}
+              value={`${this.props.filters.order.label}`}
+              onChange={order => this.props.updateFilters({ ...this.props.filters, order: order })} />
           </li>
 
         </ul>

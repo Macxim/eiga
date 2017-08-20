@@ -20,7 +20,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      filtersOpen: true,
+      filtersOpen: false,
       filters: {
         rating: {
           min: 5,
@@ -29,6 +29,14 @@ class App extends Component {
         runtime: {
           min: 45,
           max: 250
+        },
+        sort_by: {
+          value: 'vote_average',
+          label: 'Rating'
+        },
+        order: {
+          value: 'asc',
+          label: 'Ascending'
         },
         year: new Date().getFullYear()
       }

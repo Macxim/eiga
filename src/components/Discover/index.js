@@ -35,7 +35,7 @@ class Discover extends Component {
       &vote_average.lte=${this.props.filters.rating.max}
       &with_runtime.gte=${this.props.filters.runtime.min}
       &with_runtime.lte=${this.props.filters.runtime.max}
-      &sort_by=vote_average.desc`
+      &sort_by=${this.props.filters.sort_by.value}.${this.props.filters.order.value}`
     )
     .then(response => response.json())
     .then(movies => {

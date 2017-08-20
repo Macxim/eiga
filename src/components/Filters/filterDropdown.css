@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.Dropdown-root + .Dropdown-root {
+  margin-top: 3px;
+}
+
 .Dropdown-control {
   position: relative;
   overflow: hidden;
@@ -29,10 +33,10 @@
   position: absolute;
   right: 10px;
   top: 14px;
-  width: 0
+  width: 0;
 }
 
-.is-open .Dropdown-arrow {
+.Dropdown-root.is-open .Dropdown-arrow {
   border-color: transparent transparent #999;
   border-width: 0 5px 5px;
 }
