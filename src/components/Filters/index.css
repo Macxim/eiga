@@ -26,3 +26,24 @@
   margin-bottom: 15px;
   display: block;
 }
+
+.filters-close-icon-wrap{
+  display: flex;
+  flex-direction: column;
+}
+
+.filters-close-icon{
+  align-self: flex-end;
+  cursor: pointer;
+  margin: 15px 25px 0;
+  width: 1.5em;
+  height: auto;
+}
+
+.filters-close-icon path{
+  fill: #FFF;
+}
+
+.filters-close-icon:hover path{
+  fill: #FF424F;
+}

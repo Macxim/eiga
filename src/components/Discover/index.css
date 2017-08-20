@@ -1,0 +1,19 @@
+.filters-toggle-icon{
+  cursor: pointer;
+  width: 2em;
+  height: auto;
+  position: absolute;
+  right: 25px;
+}
+
+.filters-toggle-icon.is-open path{
+  fill: #FF424F;
+}
+
+.filters-toggle-icon path{
+  fill: #FFF;
+}
+
+.filters-toggle-icon:hover path{
+  fill: #FF424F;
+}

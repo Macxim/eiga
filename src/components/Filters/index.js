@@ -8,6 +8,10 @@ import './filterDropdown.css';
 
 class Filters extends Component {
 
+  toggleFilters = () => {
+    this.props.toggleFilters();
+  }
+
   render () {
 
     const appFiltersClasses = `App-filters ${this.props.filtersOpen ?  'is-open' : '' }`;
@@ -23,6 +27,12 @@ class Filters extends Component {
 
     return (
       <div className={appFiltersClasses}>
+
+        <div className="filters-close-icon-wrap">
+          <svg onClick={this.toggleFilters} className="filters-close-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125"><path d="M15.646 15.646c-18.974 18.974-18.974 49.734 0 68.708 18.974 18.975 49.734 18.975 68.708 0 18.975-18.975 18.975-49.734 0-68.708-18.974-18.974-49.734-18.974-68.708 0zm62.31 62.31c-15.415 15.414-40.497 15.414-55.912 0-15.415-15.415-15.414-40.498 0-55.912s40.497-15.415 55.91 0C93.37 37.46 93.37 62.54 77.957 77.956zm-40.6-46.996l-6.397 6.398L43.6 50 30.96 62.643l6.4 6.398L50 56.4 62.646 69.04l6.397-6.397L56.398 50 69.04 37.356l-6.397-6.398L50 43.6 37.356 30.96z"/></svg>
+        </div>
+
+
         <ul className="filters-list">
 
           <li className="filters-list__item">

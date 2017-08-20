@@ -58,10 +58,18 @@ class App extends Component {
           <div className="App-main">
             <div className="App-sidebar-wrapper">
               <Sidebar />
-              <Filters filtersOpen={this.state.filtersOpen} filters={this.state.filters} updateFilters={this.updateStateWithFilters} />
+              <Filters
+                toggleFilters={this.toggleFilters}
+                filtersOpen={this.state.filtersOpen}
+                filters={this.state.filters}
+                updateFilters={this.updateStateWithFilters} />
             </div>
               <div className="App-content-wrapper">
-                <Route exact path="/" render={()=><Discover title="Discover" toggleFilters={this.toggleFilters} filters={this.state.filters} />}/>
+                <Route exact path="/" render={()=><Discover
+                  title="Discover"
+                  filtersOpen={this.state.filtersOpen}
+                  toggleFilters={this.toggleFilters}
+                  filters={this.state.filters} />}/>
                 <Route exact path="/popular" render={()=><Main title="Popular" section={PATH_POPULAR} />}/>
                 <Route exact path="/top-rated" render={()=><Main title="Top Rated" section={PATH_TOP_RATED} />}/>
                 <Route exact path="/coming-soon" render={()=><Main title="Coming Soon" section={PATH_UPCOMING} />}/>
