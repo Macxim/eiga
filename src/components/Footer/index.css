@@ -1,0 +1,16 @@
+.App-footer{
+  margin-top: auto; /* Stick to bottom of sidebar */
+  padding: 25px;
+  text-align: center;
+  color: #FFF;
+  font-size: 12px;
+}
+
+.tmdb-logo{
+  width: 75px;
+  height: auto;
+}
+
+.tmdb-logo:hover path{
+  fill: #01d277;
+}

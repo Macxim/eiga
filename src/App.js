@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { PATH_POPULAR, PATH_TOP_RATED, PATH_UPCOMING } from './api';
 
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import Filters from './components/Filters';
 import Main from './components/Main';
@@ -58,6 +59,7 @@ class App extends Component {
           <div className="App-main">
             <div className="App-sidebar-wrapper">
               <Sidebar />
+              <Footer />
               <Filters
                 toggleFilters={this.toggleFilters}
                 filtersOpen={this.state.filtersOpen}

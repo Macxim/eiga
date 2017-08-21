@@ -1,5 +1,7 @@
 .App-sidebar-wrapper{
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-sidebar{
