@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { API_KEY, PATH_BASE, PATH_DISCOVER, PATH_MOVIE, DEFAULT_PAGE, PATH_PAGE } from '../../api';
 import List from '../../components/List';
 import Button from '../../components/Button';
+import Dropdown from 'react-dropdown';
 
 import './index.css';
 
@@ -60,22 +61,45 @@ class Discover extends Component {
     })
   }
 
-  toggleFilters = () => {
-    this.props.toggleFilters();
-  }
-
   render () {
 
     const { movies } = this.state;
     const { results, page } = movies;
-    const toggleFiltersClasses = `filters-toggle-icon ${this.props.filtersOpen ?  'is-open' : '' }`;
+    const sort_by = [
+      { value: 'popularity', label: 'Popularity' },
+      { value: 'vote_average', label: 'Rating' },
+      { value: 'original_title', label: 'Original Title' }];
+    const sort_by_order = [
+      { value: 'asc', label: 'Ascending' },
+      { value: 'desc', label: 'Descending' }
+    ];
 
     return (
       <div className="Main-wrapper">
+        <h1 className="App-main-title Discover-main-title">{this.props.title}</h1>
+        <h2 className="discover-tagline">— browse movies by year, ratings and duration.</h2>
 
-        <svg onClick={this.toggleFilters} className={toggleFiltersClasses} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125"><path d="M40.834 19.94v7H93v-7H40.834zm-25.383 0H7v7h8.45v-7zM7 80.06h53.208v-7H7v7zM37.834 46.5H7v7h30.834v-7zM84.25 80.06H93v-7h-8.75v7zM62.375 53.5H93v-7H62.375v7zm-5.953 4.922c1.104 0 2-.896 2-2V43.58c0-1.105-.896-2-2-2h-12.84c-1.103 0-2 .895-2 2V56.42c0 1.104.897 2 2 2h12.84zM21.58 32.107h12.84c1.103 0 2-.896 2-2V17.264c0-1.104-.897-2-2-2H21.58c-1.104 0-2 .896-2 2v12.843c0 1.105.896 2 2 2zM78.42 68.14H65.58c-1.104 0-2 .896-2 2v12.843c0 1.104.896 2 2 2h12.84c1.103 0 2-.896 2-2V70.14c0-1.105-.897-2-2-2z"/></svg>
+        <div className="sort-order">
+          <div className="sort-order__item">
+            <span className="sort-order-label">Sort by</span>
+            <Dropdown
+              className="test"
+              options={sort_by}
+              value={`${this.props.filters.sort_by.label}`}
+              onChange={sort_by => this.props.updateFilters({ ...this.props.filters, sort_by: sort_by })} />
+          </div>
+          <div className="sort-order__item">
+            <span className="sort-order-label">Order by</span>
+            <Dropdown
+              className="test"
+              options={sort_by_order}
+              value={`${this.props.filters.order.label}`}
+              onChange={order => this.props.updateFilters({ ...this.props.filters, order: order })} />
+          </div>
+        </div>
 
-        <h1 className="App-main-title">{this.props.title}</h1>
+
+
         { results &&
           <List list={results} />
         }

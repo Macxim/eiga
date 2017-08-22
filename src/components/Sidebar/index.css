@@ -21,7 +21,7 @@
 .sidebar-menu__item a{
   color: #FFF;
   text-decoration: none;
-  padding: 15px 25px;
+  padding: 10px 25px;
   display: block;
   transition: all .3s ease;
 }

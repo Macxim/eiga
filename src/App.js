@@ -6,7 +6,6 @@ import { PATH_POPULAR, PATH_TOP_RATED, PATH_UPCOMING } from './api';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
-import Filters from './components/Filters';
 import Main from './components/Main';
 import Discover from './components/Discover';
 import SearchResults from './components/SearchResults';
@@ -45,10 +44,6 @@ class App extends Component {
 
   }
 
-  toggleFilters = () => {
-    this.setState({filtersOpen: !this.state.filtersOpen});
-  }
-
   updateStateWithFilters = (filters) => { this.setState({ filters }) }
 
   render() {
@@ -58,19 +53,13 @@ class App extends Component {
           <Header />
           <div className="App-main">
             <div className="App-sidebar-wrapper">
-              <Sidebar />
+              <Sidebar filters={this.state.filters} updateFilters={this.updateStateWithFilters} />
               <Footer />
-              <Filters
-                toggleFilters={this.toggleFilters}
-                filtersOpen={this.state.filtersOpen}
-                filters={this.state.filters}
-                updateFilters={this.updateStateWithFilters} />
             </div>
               <div className="App-content-wrapper">
                 <Route exact path="/" render={()=><Discover
                   title="Discover"
-                  filtersOpen={this.state.filtersOpen}
-                  toggleFilters={this.toggleFilters}
+                  updateFilters={this.updateStateWithFilters}
                   filters={this.state.filters} />}/>
                 <Route exact path="/popular" render={()=><Main title="Popular" section={PATH_POPULAR} />}/>
                 <Route exact path="/top-rated" render={()=><Main title="Top Rated" section={PATH_TOP_RATED} />}/>

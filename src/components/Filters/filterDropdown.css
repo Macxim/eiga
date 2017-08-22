@@ -7,14 +7,14 @@
 }
 
 .Dropdown-control {
+  font-size: 12px;
   position: relative;
   overflow: hidden;
-  background-color: #222B31;
   border-radius: 2px;
   color: #FFF;
   cursor: pointer;
   outline: none;
-  padding: 8px 52px 8px 10px;
+  padding: 6px 40px 6px 10px;
   transition: all 200ms ease;
 }
 
@@ -32,7 +32,7 @@
   margin-top: -ceil(2.5);
   position: absolute;
   right: 10px;
-  top: 14px;
+  top: 11px;
   width: 0;
 }
 
@@ -42,8 +42,7 @@
 }
 
 .Dropdown-menu {
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: #191C1F;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
   margin-top: -1px;
@@ -64,11 +63,11 @@
 }
 
 .Dropdown-option {
-  box-sizing: border-box;
-  color: rgba(51, 51, 51, 0.8);
+  color: #FFF;
   cursor: pointer;
   display: block;
   padding: 8px 10px;
+  font-size: 12px;
 }
 
 .Dropdown-option:last-child {
@@ -77,8 +76,7 @@
 }
 
 .Dropdown-option:hover {
-  background-color: #f2f9fc;
-  color: #333;
+  color: #FF424F;
 }
 
 .Dropdown-option.is-selected {

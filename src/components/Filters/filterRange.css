@@ -89,5 +89,6 @@
 .input-range {
   height: 1rem;
   position: relative;
-  width: 100%;
+  width: 125px;
+  /*width: 100%;*/
 }
