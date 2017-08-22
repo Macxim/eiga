@@ -49,7 +49,7 @@ class Main extends Component {
     const { results, page } = movies;
 
     return (
-      <div>
+      <div className="Main-wrapper">
         <h1 className="App-main-title">{this.props.title}</h1>
         { results &&
           <List list={results} />

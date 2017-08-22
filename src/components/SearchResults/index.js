@@ -63,7 +63,7 @@ class SearchResults extends Component {
     const searchTerm = this.getQueryStrings(this.props.location.search);
 
     return (
-      <div>
+      <div className="Main-wrapper">
         <h1 className="App-main-title">Search results</h1>
         { movies.results &&
         <div>

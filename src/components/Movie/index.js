@@ -28,18 +28,14 @@ class Movie extends Component {
     const { movie } = this.state;
 
     return (
-      <div>
-        <div className="App-content-wrapper">
-          <div className="movie-wrapper">
-            <img className="movie-backdrop" src={`https://image.tmdb.org/t/p/w1000${movie.backdrop_path}`} alt=""/>
-            <div className="">
-              <img className="movie-poster" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt=""/>
-            </div>
-            <div className="movie-data">
-              <h1 className="movie-title">{movie.title}</h1>
-              <p className="movie-overview">{movie.overview}</p>
-            </div>
-          </div>
+      <div className="Movie-wrapper">
+        <img className="movie-backdrop" src={`https://image.tmdb.org/t/p/w1000${movie.backdrop_path}`} alt=""/>
+        <div className="">
+          <img className="movie-poster" src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt=""/>
+        </div>
+        <div className="movie-data">
+          <h1 className="movie-title">{movie.title}</h1>
+          <p className="movie-overview">{movie.overview}</p>
         </div>
       </div>
     );

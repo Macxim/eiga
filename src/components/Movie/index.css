@@ -6,8 +6,9 @@
   width: 100%;
 }
 
-.movie-wrapper{
+.Movie-wrapper{
   display: flex;
+  padding: 25px 2em;
   align-items: top;
   position: relative;
 }
