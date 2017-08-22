@@ -26,3 +26,43 @@
   display: block;
   width: 30%;
 }
+
+.filters-reset{
+  float: right;
+  margin-top: 5px;
+  background: transparent;
+  border: 0;
+  color: #AFBDC7;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.filters-reset:hover{
+  color: #FFF;
+  opacity: 0.8;
+}
+
+.filters-reset svg{
+  width: 10px;
+  height: auto;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.filters-reset:hover path{
+  fill: #FFF;
+  opacity: 0.8;
+}
+
+.filters-reset path{
+  fill: #AFBDC7;
+  opacity: 0.5;
+}
+
+
+.filters-reset-label{
+  text-transform: uppercase;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 5px;
+}

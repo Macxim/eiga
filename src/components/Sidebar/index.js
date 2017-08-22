@@ -40,7 +40,9 @@ class Sidebar extends Component {
         {currentPath === '/' &&
           <Filters
             filters={this.props.filters}
-            updateFilters={this.props.updateFilters} />
+            updateFilters={this.props.updateFilters}
+            resetFilters={this.props.resetFilters}
+           />
         }
 
       </div>

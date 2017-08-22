@@ -19,32 +19,35 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      filtersOpen: false,
-      filters: {
-        rating: {
-          min: 5,
-          max: 10
-        },
-        runtime: {
-          min: 45,
-          max: 250
-        },
-        sort_by: {
-          value: 'vote_average',
-          label: 'Rating'
-        },
-        order: {
-          value: 'asc',
-          label: 'Ascending'
-        },
-        year: new Date().getFullYear()
-      }
-    };
-
+    this.state = this.defaultState;
   }
 
-  updateStateWithFilters = (filters) => { this.setState({ filters }) }
+  defaultState = {
+    filtersOpen: false,
+    filters: {
+      rating: {
+        min: 5,
+        max: 10
+      },
+      runtime: {
+        min: 45,
+        max: 250
+      },
+      sort_by: {
+        value: 'vote_average',
+        label: 'Rating'
+      },
+      order: {
+        value: 'asc',
+        label: 'Ascending'
+      },
+      year: new Date().getFullYear()
+    }
+  }
+
+  updateStateWithFilters = (filters) => this.setState({ filters })
+
+  resetFilters = () => this.setState(this.defaultState)
 
   render() {
     return (
@@ -53,14 +56,15 @@ class App extends Component {
           <Header />
           <div className="App-main">
             <div className="App-sidebar-wrapper">
-              <Sidebar filters={this.state.filters} updateFilters={this.updateStateWithFilters} />
+              <Sidebar filters={this.state.filters} updateFilters={this.updateStateWithFilters}                   resetFilters={this.resetFilters} />
               <Footer />
             </div>
               <div className="App-content-wrapper">
                 <Route exact path="/" render={()=><Discover
                   title="Discover"
                   updateFilters={this.updateStateWithFilters}
-                  filters={this.state.filters} />}/>
+                  filters={this.state.filters}
+                 />}/>
                 <Route exact path="/popular" render={()=><Main title="Popular" section={PATH_POPULAR} />}/>
                 <Route exact path="/top-rated" render={()=><Main title="Top Rated" section={PATH_TOP_RATED} />}/>
                 <Route exact path="/coming-soon" render={()=><Main title="Coming Soon" section={PATH_UPCOMING} />}/>
