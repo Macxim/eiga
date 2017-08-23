@@ -1,4 +1,5 @@
 .SearchBar-wrapper{
+  position: relative;
 }
 
 .search-movie-input{
@@ -16,4 +17,17 @@
 
 .search-movie-input:focus{
   outline: 0;
+}
+
+.search-movie-input-icon{
+  position: absolute;
+  top: 50%;
+  right: 40px;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: auto;
+}
+
+.search-movie-input-icon path{
+  fill: #FFF;
 }
