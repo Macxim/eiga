@@ -21,6 +21,11 @@ html {
  box-sizing: inherit;
 }
 
+img{
+  max-width: 100%;
+  height: auto;
+}
+
 .App-main{
   display: grid;
   grid-template-columns: 18% auto;
