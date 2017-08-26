@@ -88,7 +88,7 @@ class Login extends Component {
               <input className="" id="password" name="password" type="password" ref={(input) => {this.passwordInput = input}} placeholder="Password"></input>
               <input type="submit" className="button login-form-submit" value="Log In"></input>
 
-              <div className="alertnate-login">Or</div>
+              <div className="alternate-login">Or</div>
 
               <div className="login-social-wrapper">
                 <button className="login-social" onClick={() => this.authWithFacebook()}>

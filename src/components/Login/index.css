@@ -93,7 +93,7 @@
   margin: 20px 0;
 }
 
-.alertnate-login{
+.alternate-login{
   position: relative;
   display: block;
   text-transform: uppercase;
@@ -103,8 +103,8 @@
   opacity: 0.4;
 }
 
-.alertnate-login::before,
-.alertnate-login::after{
+.alternate-login::before,
+.alternate-login::after{
   content: "";
   height: 1px;
   width: 40%;
@@ -116,11 +116,11 @@
   transform: translateY(-50%);
 }
 
-.alertnate-login::before{
+.alternate-login::before{
   left: 0;
 }
 
-.alertnate-login::after{
+.alternate-login::after{
   right: 0;
 }
 
