@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-
+import { app } from './firebase';
 import { PATH_POPULAR, PATH_TOP_RATED, PATH_UPCOMING } from './api';
 
 import Header from './components/Header';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import Main from './components/Main';
@@ -25,6 +26,7 @@ class App extends Component {
 
   defaultState = {
     authenticated: false,
+    user: null,
     filters: {
       rating: {
         min: 5,
@@ -50,21 +52,42 @@ class App extends Component {
 
   resetFilters = () => this.setState(this.defaultState)
 
+  componentWillMount = () => {
+    app.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          authenticated: true,
+          user
+        })
+      } else {
+        this.setState({
+          authenticated: false,
+          user: null
+        })
+      }
+    })
+  }
+
   render() {
     return (
       <BrowserRouter>
         <div className="App">
           <Header
             authenticated={this.state.authenticated}
+            user={this.state.user}
           />
           <div className="App-main">
             <div className="App-sidebar-wrapper">
               <Sidebar
-                filters={this.state.filters} updateFilters={this.updateStateWithFilters}                   resetFilters={this.resetFilters} />
+                filters={this.state.filters}
+                updateFilters={this.updateStateWithFilters}
+                resetFilters={this.resetFilters}
+              />
               <Footer />
             </div>
               <div className="App-content-wrapper">
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/logout" component={Logout} />
                 <Route exact path="/"
                   render={()=><Discover
                     title="Discover"

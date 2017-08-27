@@ -8,6 +8,9 @@ import { Link } from 'react-router-dom';
 import './index.css';
 
 const Header = (props) => {
+
+  this.getFirstName = (name) => name.split(" ")[0];
+
   return (
     <div className="App-header">
       <div className="App-logo">
@@ -17,7 +20,11 @@ const Header = (props) => {
       <SearchBar />
       {props.authenticated
         ? (
-          <div className="">
+          <div className="user-wrapper">
+            <Link className="" to="/logout">
+              <img className="user-wrapper-avatar" src={props.user.photoURL} alt={props.user.displayName} width="65" height="65" />
+            </Link>
+            {/* <span>{this.getFirstName(props.user.displayName)}</span> */}
           </div>
         )
         : (
