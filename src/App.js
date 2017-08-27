@@ -21,12 +21,14 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = this.defaultState;
+    this.state = {
+      authenticated: false,
+      user: null,
+      ...this.defaultState
+    };
   }
 
   defaultState = {
-    authenticated: false,
-    user: null,
     filters: {
       rating: {
         min: 5,
