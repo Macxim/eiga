@@ -26,6 +26,10 @@ img{
   height: auto;
 }
 
+.App{
+  overflow: hidden;
+}
+
 .App-main{
   display: grid;
   grid-template-columns: 18% auto;
