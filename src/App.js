@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { app } from './firebase';
 import { PATH_POPULAR, PATH_TOP_RATED, PATH_UPCOMING } from './api';
 
+import Loading from './components/Loading';
 import Header from './components/Header';
 import Login from './components/Login';
 import Logout from './components/Logout';
@@ -12,7 +13,6 @@ import Main from './components/Main';
 import Discover from './components/Discover';
 import SearchResults from './components/SearchResults';
 import Movie from './components/Movie';
-
 
 import './App.css';
 
@@ -24,11 +24,12 @@ class App extends Component {
     this.state = {
       authenticated: false,
       user: null,
-      ...this.defaultState
+      loading: true,
+      ...this.defaulFilterstState
     };
   }
 
-  defaultState = {
+  defaulFilterstState = {
     filters: {
       rating: {
         min: 5,
@@ -59,12 +60,14 @@ class App extends Component {
       if (user) {
         this.setState({
           authenticated: true,
-          user
+          user,
+          loading: false
         })
       } else {
         this.setState({
           authenticated: false,
-          user: null
+          user: null,
+          loading: false
         })
       }
     })
@@ -74,6 +77,9 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
+          {this.state.loading &&
+          <Loading />
+          }
           <Header
             authenticated={this.state.authenticated}
             user={this.state.user}

@@ -13,6 +13,7 @@ class Discover extends Component {
 
     this.state = {
       movies: {},
+      loading: true
     };
 
   }
@@ -57,7 +58,8 @@ class Discover extends Component {
     ]
 
     this.setState({
-      movies: { results: updatedResults, page }
+      movies: { results: updatedResults, page },
+      loading: false
     })
   }
 

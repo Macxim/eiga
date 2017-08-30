@@ -11,7 +11,8 @@ class Main extends Component {
     super(props);
 
     this.state = {
-      movies: {}
+      movies: {},
+      loading: true
     };
 
   }
@@ -39,7 +40,8 @@ class Main extends Component {
     ]
 
     this.setState({
-      movies: { results: updatedResults, page }
+      movies: { results: updatedResults, page },
+      loading: false
     })
   }
 

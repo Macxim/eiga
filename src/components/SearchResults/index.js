@@ -10,7 +10,8 @@ class SearchResults extends Component {
     super(props);
 
     this.state = {
-      movies: {}
+      movies: {},
+      loading: true
     };
 
   }
@@ -43,8 +44,8 @@ class SearchResults extends Component {
     ]
 
     this.setState({
-      movies: {
-        results: updatedResults, page, total_pages, total_results }
+      movies: { results: updatedResults, page, total_pages, total_results },
+      loading: false
     })
   }
 
