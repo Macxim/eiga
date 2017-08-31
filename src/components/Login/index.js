@@ -25,13 +25,35 @@ class Login extends Component {
       })
   }
 
-  // authWithEmailPassword(e) {
-  //   e.preventDefault()
-  //   console.table([{
-  //     email: this.emailInput.value,
-  //     password: this.passwordInput.value,
-  //   }])
-  // }
+  authWithEmailPassword(e) {
+    e.preventDefault()
+
+    const email = this.emailInput.value
+    const password = this.passwordInput.value
+
+    app.auth().fetchProvidersForEmail(email)
+    .then((providers) => {
+    if (providers.length === 0) {
+      // User doesn't have account, let's create it.
+      return app.auth().createUserWithEmailAndPassword(email, password)
+    } else if (providers.indexOf("password") === -1) {
+      // User signed up with social network
+      console.log('Please, try alternative login.');
+    } else {
+      // Sign in with email/password
+      return app.auth().signInWithEmailAndPassword(email, password)
+    }
+  })
+  .then((user) => {
+    if (user && user.email) {
+      this.loginForm.reset()
+      this.setState({ redirect: true })
+    }
+  })
+  .catch((error) => {
+    console.log(error.message);
+  })
+  }
 
   render () {
 
@@ -57,16 +79,16 @@ class Login extends Component {
           <h1 className="App-main-title login-form-title">Join us!</h1>
           <div className="login-form-notice">If you don't have an account already, this form will create you one.</div>
 
-          <form className="login-form eiga-form" onSubmit={(event) => this.authWithEmailPassword(event)}>
+          <form className="login-form eiga-form" onSubmit={(event) => this.authWithEmailPassword(event)} ref={(form) => { this.loginForm = form }}>
             <div className="login-form-content">
               <label className="" htmlFor="email">
                 Email
               </label>
-              <input className="" id="email" name="email" type="email" placeholder="Email"></input>
+              <input ref={(input) => {this.emailInput = input}} className="" id="email" name="email" type="email" placeholder="Email"></input>
               <label className="" htmlFor="password">
                 Password
               </label>
-              <input className="" id="password" name="password" type="password"  placeholder="Password"></input>
+              <input ref={(input) => {this.passwordInput = input}} className="" id="password" name="password" type="password"  placeholder="Password"></input>
               <input type="submit" className="button login-form-submit" value="Log In"></input>
             </div>
           </form>
