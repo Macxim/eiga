@@ -12,10 +12,9 @@
 .sort-order{
   position: absolute;
   right: 0;
-  top: 0;
+  top: 100px;
   display: flex;
   align-items: center;
-  background-color: #191C1F;
   padding: 10px;
 }
 
@@ -28,5 +27,21 @@
 
 .sort-order-label{
   font-size: 12px;
-  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sort-order__item .Dropdown-arrow{
+  display: none;
+}
+
+.sort-order__item .Dropdown-placeholder{
+  text-decoration: underline;
+}
+
+.sort-order__item .Dropdown-control {
+  padding: 6px 20px 6px 10px;
+}
+
+.sort-order__item .Dropdown-menu{
+  width: 120%;
 }
