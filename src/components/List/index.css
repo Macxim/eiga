@@ -17,6 +17,18 @@
   height: 278px;
   margin: 0 auto 15px;
   box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.list__movie-image img{
+  display: block;
+}
+
+.list__movie-image-link{
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 
@@ -66,4 +78,32 @@
   transform: translateX(-50%);
   font-size: 13px;
   z-index: 1;
+}
+
+
+.list__movie-actions{
+  position: absolute;
+  bottom: -40px;
+  background-color: rgba(0, 0, 0, 0.85);
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  transition: bottom 0.4s ease;
+}
+
+
+.list__movie-action{
+  fill: #FFF;
+  transition: fill 0.4s ease;
+  cursor: pointer;
+}
+
+.list__movie-action:hover{
+  fill: #e53b47;
+}
+
+.list__movie-image:hover .list__movie-actions{
+  bottom: 0;
 }
