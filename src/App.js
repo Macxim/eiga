@@ -55,6 +55,14 @@ class App extends Component {
 
   resetFilters = () => this.setState(this.defaultState)
 
+  addFavoriteMovie = (selectedMovie) => {
+    const userUid = app.auth().currentUser.uid;
+
+    app.database().ref(userUid).child('favorites').update({
+      [selectedMovie]: selectedMovie
+    });
+  }
+
   componentWillMount = () => {
     app.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -101,6 +109,7 @@ class App extends Component {
                     title="Discover"
                     updateFilters={this.updateStateWithFilters}
                     filters={this.state.filters}
+                    addFavMovie={this.addFavoriteMovie}
                     />}
                  />
                 <Route exact path="/popular"
