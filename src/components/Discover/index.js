@@ -103,7 +103,7 @@ class Discover extends Component {
 
 
         { results &&
-          <List list={results} />
+          <List list={results} addFavMovie={this.props.addFavMovie} removeFavMovie={this.props.removeFavMovie} />
         }
         <Button
           className="button"

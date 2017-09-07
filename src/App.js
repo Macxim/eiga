@@ -25,6 +25,7 @@ class App extends Component {
       authenticated: false,
       user: null,
       loading: true,
+      favoriteMovies: {},
       ...this.defaulFilterstState
     };
   }
@@ -63,6 +64,12 @@ class App extends Component {
     });
   }
 
+  removeFavoriteMovie = (selectedMovie) => {
+    const userUid = app.auth().currentUser.uid;
+
+    app.database().ref(userUid).child('favorites').child(selectedMovie).remove();
+  }
+
   componentWillMount = () => {
     app.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -71,6 +78,14 @@ class App extends Component {
           user,
           loading: false
         })
+
+        const userUid = app.auth().currentUser.uid;
+        let favoriteMoviesRef = app.database().ref(userUid).child('favorites');
+        favoriteMoviesRef.on('child_added', snapshot => {
+          let fav = snapshot.val();
+          this.setState({ favoriteMovies: [...this.state.favoriteMovies, fav] });
+        })
+
       } else {
         this.setState({
           authenticated: false,
@@ -110,6 +125,7 @@ class App extends Component {
                     updateFilters={this.updateStateWithFilters}
                     filters={this.state.filters}
                     addFavMovie={this.addFavoriteMovie}
+                    removeFavMovie={this.removeFavoriteMovie}
                     />}
                  />
                 <Route exact path="/popular"
