@@ -45,8 +45,8 @@ class App extends Component {
         label: 'Rating'
       },
       order: {
-        value: 'asc',
-        label: 'Ascending'
+        value: 'desc',
+        label: 'Descending'
       },
       year: new Date().getFullYear()
     }
