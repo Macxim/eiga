@@ -26,7 +26,7 @@ class App extends Component {
       authenticated: false,
       user: null,
       loading: true,
-      favoriteMovies: {},
+      favoriteMovies: [],
       ...this.defaulFilterstState
     };
   }
@@ -160,30 +160,50 @@ class App extends Component {
                     title="Discover"
                     updateFilters={this.updateStateWithFilters}
                     filters={this.state.filters}
+                    authenticated={this.state.authenticated}
                     addFavMovie={this.addFavoriteMovie}
                     removeFavMovie={this.removeFavoriteMovie}
+                    favorites={this.state.favoriteMovies}
                     />}
                  />
                 <Route exact path="/popular"
                   render={()=><Main
                     title="Popular"
                     section={PATH_POPULAR}
+                    authenticated={this.state.authenticated}
+                    addFavMovie={this.addFavoriteMovie}
+                    removeFavMovie={this.removeFavoriteMovie}
+                    favorites={this.state.favoriteMovies}
                     />}
                 />
                 <Route exact path="/top-rated"
                   render={()=><Main
                     title="Top Rated"
                     section={PATH_TOP_RATED}
+                    authenticated={this.state.authenticated}
+                    addFavMovie={this.addFavoriteMovie}
+                    removeFavMovie={this.removeFavoriteMovie}
+                    favorites={this.state.favoriteMovies}
                   />}
                 />
                 <Route exact path="/coming-soon"
                   render={()=><Main
                     title="Coming Soon"
                     section={PATH_UPCOMING}
+                    authenticated={this.state.authenticated}
+                    addFavMovie={this.addFavoriteMovie}
+                    removeFavMovie={this.removeFavoriteMovie}
+                    favorites={this.state.favoriteMovies}
                   />}
                 />
                 <Route path="/search" component={SearchResults}/>
-                <Route path="/movie/:id-:title" component={Movie}/>
+                <Route path="/movie/:id-:title"
+                  render={props => (
+                    <Movie {...props}
+                      addFavMovie={this.addFavoriteMovie}
+                      removeFavMovie={this.removeFavoriteMovie}
+                    />
+                  )}/>
               </div>
           </div>
         </div>
