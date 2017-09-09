@@ -13,6 +13,7 @@ import Main from './components/Main';
 import Discover from './components/Discover';
 import SearchResults from './components/SearchResults';
 import Movie from './components/Movie';
+import NotificationSystem from 'react-notification-system';
 
 import './App.css';
 
@@ -59,15 +60,45 @@ class App extends Component {
   addFavoriteMovie = (selectedMovie) => {
     const userUid = app.auth().currentUser.uid;
 
+    const onComplete = (error) => {
+      if (error) {
+        this._notificationSystem.addNotification({
+          message: 'An error ocurred.',
+          level: 'error'
+        });
+      } else {
+        this._notificationSystem.addNotification({
+          message: 'Movie added to favorites.',
+          level: 'success'
+        });
+      }
+    };
+
     app.database().ref(userUid).child('favorites').update({
       [selectedMovie]: selectedMovie
-    });
+    }, onComplete);
+
+
   }
 
   removeFavoriteMovie = (selectedMovie) => {
     const userUid = app.auth().currentUser.uid;
 
-    app.database().ref(userUid).child('favorites').child(selectedMovie).remove();
+    const onComplete = (error) => {
+      if (error) {
+        this._notificationSystem.addNotification({
+          message: 'An error ocurred.',
+          level: 'error'
+        });
+      } else {
+        this._notificationSystem.addNotification({
+          message: 'Movie removed from favorites.',
+          level: 'success'
+        });
+      }
+    };
+
+    app.database().ref(userUid).child('favorites').child(selectedMovie).remove(onComplete);
   }
 
   componentWillMount = () => {
@@ -96,10 +127,15 @@ class App extends Component {
     })
   }
 
+  componentDidMount = () => {
+    this._notificationSystem = this.refs.notificationSystem;
+  }
+
   render() {
     return (
       <BrowserRouter>
         <div className="App">
+          <NotificationSystem ref="notificationSystem" />
           {this.state.loading &&
           <Loading />
           }
