@@ -53,9 +53,17 @@ class Main extends Component {
     return (
       <div className="Main-wrapper">
         <h1 className="App-main-title">{this.props.title}</h1>
+
         { results &&
-          <List list={results} />
+          <List
+            list={results}
+            addFavMovie={selectedMovie => this.props.addFavMovie(selectedMovie)}
+            removeFavMovie={selectedMovie => this.props.removeFavMovie(selectedMovie)}
+            isUserAuthenticated={this.props.authenticated}
+            favorites={this.props.favorites}
+         />
         }
+
         <Button
           className="button"
           onClick={() => this.getMovies(this.props.section, page + 1)}

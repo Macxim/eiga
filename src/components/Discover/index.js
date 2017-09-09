@@ -103,7 +103,13 @@ class Discover extends Component {
 
 
         { results &&
-          <List list={results} addFavMovie={this.props.addFavMovie} removeFavMovie={this.props.removeFavMovie} />
+          <List
+            list={results}
+            addFavMovie={selectedMovie => this.props.addFavMovie(selectedMovie)}
+            removeFavMovie={selectedMovie => this.props.removeFavMovie(selectedMovie)}
+            isUserAuthenticated={this.props.authenticated}
+            favorites={this.props.favorites}
+         />
         }
         <Button
           className="button"
