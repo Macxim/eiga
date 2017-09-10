@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { API_KEY, PATH_BASE, PATH_MOVIE } from '../../api';
+import { Link } from 'react-router-dom';
 
 import './index.css';
 
@@ -10,12 +11,24 @@ class Movie extends Component {
 
     this.state = {
       movie: {},
+      favorited: false
     };
 
   }
 
+  favoriteMovie = () => {
+    this.setState({ favorited: true });
+    this.props.onFavoriteSelect(this.state.movie.id);
+  }
+
+  unfavoriteMovie = () => {
+    this.setState({ favorited: false });
+    this.props.onFavoriteDeselect(this.state.movie.id);
+  }
+
   componentDidMount = () => {
     const MOVIE_ID = this.props.match.params.id;
+
     fetch(`${PATH_BASE}${PATH_MOVIE}/${MOVIE_ID}?api_key=${API_KEY}&append_to_response=videos`)
     .then(response => response.json())
     .then(movie => (
@@ -23,11 +36,41 @@ class Movie extends Component {
     ));
   }
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps !== this.props){
+      console.log(this.props.favorites, this.state.movie.id);
+      if (this.props.authenticated){
+        Object.keys(this.props.favorites).forEach((key) => {
+          if (this.props.favorites[key] === this.state.movie.id) {
+            this.setState({ favorited: true });
+          }
+        });
+      }
+    }
+  }
+
+  renderFavHeart = () => {
+    if (this.props.authenticated){
+      if (this.state.favorited) {
+        return (
+          <svg onClick={() => this.unfavoriteMovie()} className="movie__action action__favorite is-true" viewBox="0 0 13 12" xmlns="http://www.w3.org/2000/svg"><path d="M12.903 3.583C12.713 1.507 11.245 0 9.405 0 8.18 0 7.058.66 6.427 1.717 5.8.647 4.725 0 3.52 0 1.68 0 .21 1.507.02 3.583c-.015.092-.076.574.11 1.362.267 1.135.886 2.168 1.79 2.986l4.502 4.087 4.58-4.086c.902-.817 1.52-1.85 1.79-2.985.185-.787.124-1.27.11-1.362z"/></svg>
+        )
+      }
+      return (
+        <svg onClick={() => this.favoriteMovie()} className="movie__action action__favorite" viewBox="0 0 13 12" xmlns="http://www.w3.org/2000/svg"><path d="M12.903 3.583C12.713 1.507 11.245 0 9.405 0 8.18 0 7.058.66 6.427 1.717 5.8.647 4.725 0 3.52 0 1.68 0 .21 1.507.02 3.583c-.015.092-.076.574.11 1.362.267 1.135.886 2.168 1.79 2.986l4.502 4.087 4.58-4.086c.902-.817 1.52-1.85 1.79-2.985.185-.787.124-1.27.11-1.362z"/></svg>
+      )
+    }
+    return (
+      <Link to="/login">
+        <svg className="movie__action action__favorite" viewBox="0 0 13 12" xmlns="http://www.w3.org/2000/svg"><path d="M12.903 3.583C12.713 1.507 11.245 0 9.405 0 8.18 0 7.058.66 6.427 1.717 5.8.647 4.725 0 3.52 0 1.68 0 .21 1.507.02 3.583c-.015.092-.076.574.11 1.362.267 1.135.886 2.168 1.79 2.986l4.502 4.087 4.58-4.086c.902-.817 1.52-1.85 1.79-2.985.185-.787.124-1.27.11-1.362z"/></svg>
+      </Link>
+    )
+  }
+
   render () {
 
     const { movie } = this.state;
 
-    console.log(movie);
     const movieBackdropStyles = {
       backgroundImage: `url(https://image.tmdb.org/t/p/w1000${movie.backdrop_path})`,
       backgroundRepeat: "no-repeat",
@@ -46,11 +89,10 @@ class Movie extends Component {
 
               <div className="movie-actions__item">
                 <span className="movie-action-circle">
-                  <svg width="13" height="12" className="movie__action action__favorite" viewBox="0 0 13 12" xmlns="http://www.w3.org/2000/svg"><path d="M12.903 3.583C12.713 1.507 11.245 0 9.405 0 8.18 0 7.058.66 6.427 1.717 5.8.647 4.725 0 3.52 0 1.68 0 .21 1.507.02 3.583c-.015.092-.076.574.11 1.362.267 1.135.886 2.168 1.79 2.986l4.502 4.087 4.58-4.086c.902-.817 1.52-1.85 1.79-2.985.185-.787.124-1.27.11-1.362z"/></svg>
+                  {this.renderFavHeart()}
                 </span>
                 <span className="movie__action-label">Favorite</span>
               </div>
-
 
               <div className="movie-actions__item">
                 <span className="movie-action-circle">
@@ -58,8 +100,6 @@ class Movie extends Component {
                 </span>
                 <span className="movie__action-label">Play trailer</span>
               </div>
-
-
 
             </div>
 
