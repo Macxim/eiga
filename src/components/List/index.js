@@ -12,7 +12,7 @@ const List = (props) => {
               voteAverage={movie.vote_average}
               posterPath={movie.poster_path}
               title={movie.title}
-              isUserAuthenticated={props.isUserAuthenticated}
+              authenticated={props.authenticated}
               onFavoriteSelect={selectedMovie => props.addFavMovie(selectedMovie)}
               onFavoriteDeselect={selectedMovie => props.removeFavMovie(selectedMovie)}
               favorites={props.favorites} />
