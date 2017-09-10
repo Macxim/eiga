@@ -26,7 +26,7 @@ class App extends Component {
       authenticated: false,
       user: null,
       loading: true,
-      favoriteMovies: [],
+      favoriteMovies: {},
       ...this.defaulFilterstState
     };
   }
@@ -77,8 +77,6 @@ class App extends Component {
     app.database().ref(userUid).child('favorites').update({
       [selectedMovie]: selectedMovie
     }, onComplete);
-
-
   }
 
   removeFavoriteMovie = (selectedMovie) => {
@@ -111,10 +109,9 @@ class App extends Component {
         })
 
         const userUid = app.auth().currentUser.uid;
-        let favoriteMoviesRef = app.database().ref(userUid).child('favorites');
-        favoriteMoviesRef.on('child_added', snapshot => {
-          let fav = snapshot.val();
-          this.setState({ favoriteMovies: [...this.state.favoriteMovies, fav] });
+        app.database().ref(userUid).child('favorites').once('value').then((snapshot) => {
+          const favoritesObj = snapshot.val();
+          this.setState({ favoriteMovies: favoritesObj });
         })
 
       } else {
