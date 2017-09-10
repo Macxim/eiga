@@ -14,12 +14,6 @@ class MovieItem extends Component {
 
   }
 
-  checkIfIsFavorite = (id) => {
-    if (this.props.favorites.indexOf(id) > -1) {
-      this.setState({ favorited: true });
-    }
-  }
-
   favoriteMovie = () => {
     this.setState({ favorited: true });
     this.props.onFavoriteSelect(this.props.id);
@@ -32,34 +26,32 @@ class MovieItem extends Component {
 
   titleURL = (title) => title.replace(/\W+/g, '-').toLowerCase()
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps !== this.props){
-      if (this.props.authenticated){
-        Object.keys(this.props.favorites).forEach((key) => {
-          if (this.props.favorites[key] === this.props.id) {
-            this.setState({ favorited: true });
-          }
-        });
-      }
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.authenticated){
+      Object.keys(nextProps.favorites).forEach((key) => {
+        if (nextProps.favorites[key] === nextProps.id) {
+          this.setState({ favorited: true });
+        }
+      });
     }
   }
 
   renderFavHeart = () => {
     if (this.props.authenticated){
-      if (this.state.favorited) {
-        return (
-          <svg onClick={() => this.unfavoriteMovie()} className="list__movie-action action__favorite is-true" viewBox="0 0 13 12" xmlns="http://www.w3.org/2000/svg"><path d="M12.903 3.583C12.713 1.507 11.245 0 9.405 0 8.18 0 7.058.66 6.427 1.717 5.8.647 4.725 0 3.52 0 1.68 0 .21 1.507.02 3.583c-.015.092-.076.574.11 1.362.267 1.135.886 2.168 1.79 2.986l4.502 4.087 4.58-4.086c.902-.817 1.52-1.85 1.79-2.985.185-.787.124-1.27.11-1.362z"/></svg>
-        )
-      }
       return (
-        <svg onClick={() => this.favoriteMovie()} className="list__movie-action action__favorite" viewBox="0 0 13 12" xmlns="http://www.w3.org/2000/svg"><path d="M12.903 3.583C12.713 1.507 11.245 0 9.405 0 8.18 0 7.058.66 6.427 1.717 5.8.647 4.725 0 3.52 0 1.68 0 .21 1.507.02 3.583c-.015.092-.076.574.11 1.362.267 1.135.886 2.168 1.79 2.986l4.502 4.087 4.58-4.086c.902-.817 1.52-1.85 1.79-2.985.185-.787.124-1.27.11-1.362z"/></svg>
+        this.state.favorited ?
+          <svg onClick={() => this.unfavoriteMovie()} className="list__movie-action action__favorite is-true" viewBox="0 0 13 12" xmlns="http://www.w3.org/2000/svg"><path d="M12.903 3.583C12.713 1.507 11.245 0 9.405 0 8.18 0 7.058.66 6.427 1.717 5.8.647 4.725 0 3.52 0 1.68 0 .21 1.507.02 3.583c-.015.092-.076.574.11 1.362.267 1.135.886 2.168 1.79 2.986l4.502 4.087 4.58-4.086c.902-.817 1.52-1.85 1.79-2.985.185-.787.124-1.27.11-1.362z"/></svg>
+        :
+          <svg onClick={() => this.favoriteMovie()} className="list__movie-action action__favorite" viewBox="0 0 13 12" xmlns="http://www.w3.org/2000/svg"><path d="M12.903 3.583C12.713 1.507 11.245 0 9.405 0 8.18 0 7.058.66 6.427 1.717 5.8.647 4.725 0 3.52 0 1.68 0 .21 1.507.02 3.583c-.015.092-.076.574.11 1.362.267 1.135.886 2.168 1.79 2.986l4.502 4.087 4.58-4.086c.902-.817 1.52-1.85 1.79-2.985.185-.787.124-1.27.11-1.362z"/></svg>
       )
     }
-    return (
-      <Link to="/login">
-        <svg className="list__movie-action action__favorite" viewBox="0 0 13 12" xmlns="http://www.w3.org/2000/svg"><path d="M12.903 3.583C12.713 1.507 11.245 0 9.405 0 8.18 0 7.058.66 6.427 1.717 5.8.647 4.725 0 3.52 0 1.68 0 .21 1.507.02 3.583c-.015.092-.076.574.11 1.362.267 1.135.886 2.168 1.79 2.986l4.502 4.087 4.58-4.086c.902-.817 1.52-1.85 1.79-2.985.185-.787.124-1.27.11-1.362z"/></svg>
-      </Link>
-    )
+    else {
+      return (
+        <Link to="/login">
+          <svg className="list__movie-action action__favorite" viewBox="0 0 13 12" xmlns="http://www.w3.org/2000/svg"><path d="M12.903 3.583C12.713 1.507 11.245 0 9.405 0 8.18 0 7.058.66 6.427 1.717 5.8.647 4.725 0 3.52 0 1.68 0 .21 1.507.02 3.583c-.015.092-.076.574.11 1.362.267 1.135.886 2.168 1.79 2.986l4.502 4.087 4.58-4.086c.902-.817 1.52-1.85 1.79-2.985.185-.787.124-1.27.11-1.362z"/></svg>
+        </Link>
+      )
+    }
   }
 
   renderWatchLaterClock = () => {

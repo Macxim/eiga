@@ -197,6 +197,7 @@ class App extends Component {
                 <Route path="/movie/:id-:title"
                   render={props => (
                     <Movie {...props}
+                      id={props.match.params.id}
                       authenticated={this.state.authenticated}
                       onFavoriteSelect={selectedMovie => this.addFavoriteMovie(selectedMovie)}
                       onFavoriteDeselect={selectedMovie => this.removeFavoriteMovie(selectedMovie)}
