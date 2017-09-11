@@ -55,6 +55,13 @@ class App extends Component {
 
   updateStateWithFilters = (filters) => this.setState({ filters })
 
+  updateFavoritesState = (userUid) => {
+    app.database().ref(userUid).child('favorites').on('value', (snapshot) => {
+      const favoritesObj = snapshot.val();
+      this.setState({ favoriteMovies: favoritesObj });
+    })
+  }
+
   resetFilters = () => this.setState(this.defaultState)
 
   addFavoriteMovie = (selectedMovie) => {
@@ -77,6 +84,8 @@ class App extends Component {
     app.database().ref(userUid).child('favorites').update({
       [selectedMovie]: selectedMovie
     }, onComplete);
+    this.updateFavoritesState(userUid);
+
   }
 
   removeFavoriteMovie = (selectedMovie) => {
@@ -97,6 +106,7 @@ class App extends Component {
     };
 
     app.database().ref(userUid).child('favorites').child(selectedMovie).remove(onComplete);
+    this.updateFavoritesState(userUid);
   }
 
   componentWillMount = () => {
