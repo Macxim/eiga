@@ -26,7 +26,7 @@ class Movie extends Component {
     this.props.onFavoriteDeselect(this.state.movie.id);
   }
 
-  componentDidMount = () => {
+  componentWillMount = () => {
     const MOVIE_ID = this.props.match.params.id;
 
     fetch(`${PATH_BASE}${PATH_MOVIE}/${MOVIE_ID}?api_key=${API_KEY}&append_to_response=videos`)
@@ -36,10 +36,10 @@ class Movie extends Component {
     ));
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.authenticated){
-      Object.keys(nextProps.favorites).forEach((key) => {
-        if (nextProps.favorites[key] === Number(nextProps.id)) {
+  componentDidMount = () => {
+    if (this.props.authenticated){
+      Object.keys(this.props.favorites).forEach((key) => {
+        if (this.props.favorites[key] === Number(this.props.id)) {
           this.setState({ favorited: true });
         }
       });

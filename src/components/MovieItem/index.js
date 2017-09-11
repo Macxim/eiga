@@ -26,13 +26,23 @@ class MovieItem extends Component {
 
   titleURL = (title) => title.replace(/\W+/g, '-').toLowerCase()
 
+  processFavorites = (favorites, id) => {
+    Object.keys(favorites).forEach((key) => {
+      if (favorites[key] === id) {
+        this.setState({ favorited: true });
+      }
+    });
+  }
+
+  componentWillMount = () => {
+    if (this.props.authenticated){
+      this.processFavorites(this.props.favorites, this.props.id);
+    }
+  }
+
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.authenticated){
-      Object.keys(nextProps.favorites).forEach((key) => {
-        if (nextProps.favorites[key] === nextProps.id) {
-          this.setState({ favorited: true });
-        }
-      });
+      this.processFavorites(nextProps.favorites, nextProps.id);
     }
   }
 
