@@ -23,7 +23,7 @@ class Discover extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps !== this.props){
+    if (prevProps.filters !== this.props.filters){
       this.getMovies(DEFAULT_PAGE)
     }
   }
