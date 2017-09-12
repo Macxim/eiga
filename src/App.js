@@ -26,7 +26,8 @@ class App extends Component {
       authenticated: false,
       user: null,
       loading: true,
-      favoriteMovies: {},
+      favorites: {},
+      watchLater: {},
       ...this.defaulFilterstState
     };
   }
@@ -55,58 +56,50 @@ class App extends Component {
 
   updateStateWithFilters = (filters) => this.setState({ filters })
 
-  updateFavoritesState = (userUid) => {
-    app.database().ref(userUid).child('favorites').on('value', (snapshot) => {
-      const favoritesObj = snapshot.val();
-      this.setState({ favoriteMovies: favoritesObj });
+  handleUserListsState = (userUid, list, state) => {
+    app.database().ref(userUid).child(list).on('value', (snapshot) => {
+      const stateObject = () => {
+        const obj = {};
+        obj[state] = snapshot.val();
+        return obj;
+      }
+      this.setState(stateObject);
     })
   }
 
   resetFilters = () => this.setState(this.defaultState)
 
-  addFavoriteMovie = (selectedMovie) => {
-    const userUid = app.auth().currentUser.uid;
-
+  notificationOnCompleteListsActions = () => {
     const onComplete = (error) => {
       if (error) {
         this._notificationSystem.addNotification({
-          message: 'An error ocurred.',
+          message: 'Oh no! An error ocurred. 😨',
           level: 'error'
         });
       } else {
         this._notificationSystem.addNotification({
-          message: 'Movie added to favorites.',
+          message: 'Movie succesfully added. 😉',
           level: 'success'
         });
       }
     };
-
-    app.database().ref(userUid).child('favorites').update({
-      [selectedMovie]: selectedMovie
-    }, onComplete);
-    this.updateFavoritesState(userUid);
-
+    return onComplete;
   }
 
-  removeFavoriteMovie = (selectedMovie) => {
+  addToUserList = (selectedMovie, userList) => {
     const userUid = app.auth().currentUser.uid;
 
-    const onComplete = (error) => {
-      if (error) {
-        this._notificationSystem.addNotification({
-          message: 'An error ocurred.',
-          level: 'error'
-        });
-      } else {
-        this._notificationSystem.addNotification({
-          message: 'Movie removed from favorites.',
-          level: 'success'
-        });
-      }
-    };
+    app.database().ref(userUid).child(userList).update({
+      [selectedMovie]: selectedMovie
+    }, this.notificationOnCompleteListsActions());
+    this.handleUserListsState(userUid, userList, userList);
+  }
 
-    app.database().ref(userUid).child('favorites').child(selectedMovie).remove(onComplete);
-    this.updateFavoritesState(userUid);
+  removeFromUserList = (selectedMovie, userList) => {
+    const userUid = app.auth().currentUser.uid;
+
+    app.database().ref(userUid).child(userList).child(selectedMovie).remove(this.notificationOnCompleteListsAction());
+    this.handleUserListsState(userUid, userList, userList);
   }
 
   componentWillMount = () => {
@@ -119,9 +112,11 @@ class App extends Component {
         })
 
         const userUid = app.auth().currentUser.uid;
-        app.database().ref(userUid).child('favorites').once('value').then((snapshot) => {
-          const favoritesObj = snapshot.val();
-          this.setState({ favoriteMovies: favoritesObj });
+        app.database().ref(userUid).once('value').then((snapshot) => {
+          const firebaseUserLists = snapshot.val();
+          if (firebaseUserLists) {
+            this.setState(firebaseUserLists);
+          }
         })
 
       } else {
@@ -168,40 +163,40 @@ class App extends Component {
                     updateFilters={this.updateStateWithFilters}
                     filters={this.state.filters}
                     authenticated={this.state.authenticated}
-                    addFavMovie={this.addFavoriteMovie}
-                    removeFavMovie={this.removeFavoriteMovie}
-                    favorites={this.state.favoriteMovies}
-                    />}
+                    addToList={this.addToUserList}
+                    removeFromList={this.removeFromUserList}
+                    favorites={this.state.favorites}
+                    watchLater={this.state.watchLater} />}
                  />
                 <Route exact path="/popular"
                   render={()=><Main
                     title="Popular"
                     section={PATH_POPULAR}
                     authenticated={this.state.authenticated}
-                    addFavMovie={this.addFavoriteMovie}
-                    removeFavMovie={this.removeFavoriteMovie}
-                    favorites={this.state.favoriteMovies}
-                    />}
+                    addToList={this.addToUserList}
+                    removeFromList={this.removeFromUserList}
+                    favorites={this.state.favorites}
+                    watchLater={this.state.watchLater} />}
                 />
                 <Route exact path="/top-rated"
                   render={()=><Main
                     title="Top Rated"
                     section={PATH_TOP_RATED}
                     authenticated={this.state.authenticated}
-                    addFavMovie={this.addFavoriteMovie}
-                    removeFavMovie={this.removeFavoriteMovie}
-                    favorites={this.state.favoriteMovies}
-                  />}
+                    addToList={this.addToUserList}
+                    removeFromList={this.removeFromUserList}
+                    favorites={this.state.favorites}
+                    watchLater={this.state.watchLater}  />}
                 />
                 <Route exact path="/coming-soon"
                   render={()=><Main
                     title="Coming Soon"
                     section={PATH_UPCOMING}
                     authenticated={this.state.authenticated}
-                    addFavMovie={this.addFavoriteMovie}
-                    removeFavMovie={this.removeFavoriteMovie}
-                    favorites={this.state.favoriteMovies}
-                  />}
+                    addToList={this.addToUserList}
+                    removeFromList={this.removeFromUserList}
+                    favorites={this.state.favorites}
+                    watchLater={this.state.watchLater}  />}
                 />
                 <Route path="/search" component={SearchResults}/>
                 <Route path="/movie/:id-:title"
@@ -209,11 +204,11 @@ class App extends Component {
                     <Movie {...props}
                       id={props.match.params.id}
                       authenticated={this.state.authenticated}
-                      onFavoriteSelect={selectedMovie => this.addFavoriteMovie(selectedMovie)}
-                      onFavoriteDeselect={selectedMovie => this.removeFavoriteMovie(selectedMovie)}
-                      favorites={this.state.favoriteMovies}
-                    />
-                  )}/>
+                      onFavoriteSelect={selectedMovie => this.addToUserList(selectedMovie)}
+                      onFavoriteDeselect={selectedMovie => this.removeFromUserList(selectedMovie)}
+                      favorites={this.state.favorites}
+                      watchLater={this.state.watchLater} />)}
+                />
               </div>
           </div>
         </div>

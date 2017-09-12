@@ -13,9 +13,10 @@ const List = (props) => {
               posterPath={movie.poster_path}
               title={movie.title}
               authenticated={props.authenticated}
-              onFavoriteSelect={selectedMovie => props.addFavMovie(selectedMovie)}
-              onFavoriteDeselect={selectedMovie => props.removeFavMovie(selectedMovie)}
-              favorites={props.favorites} />
+              onFavoriteSelect={(selectedMovie, userList) => props.addToList(selectedMovie, userList)}
+              onFavoriteDeselect={(selectedMovie, userList) => props.removeFromList(selectedMovie, userList)}
+              favorites={props.favorites}
+              watchLater={props.watchLater} />
   });
 
   return (

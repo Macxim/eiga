@@ -57,10 +57,11 @@ class Main extends Component {
         { results &&
           <List
             list={results}
-            addFavMovie={selectedMovie => this.props.addFavMovie(selectedMovie)}
-            removeFavMovie={selectedMovie => this.props.removeFavMovie(selectedMovie)}
+            addToList={(selectedMovie, userList) => this.props.addToList(selectedMovie, userList)}
+            removeFromList={(selectedMovie, userList) => this.props.removeFromList(selectedMovie, userList)}
             authenticated={this.props.authenticated}
             favorites={this.props.favorites}
+            watchLater={this.props.watchLater}
          />
         }
 
