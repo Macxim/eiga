@@ -39,8 +39,6 @@ class MovieItem extends Component {
 
   processLists = (listObj, id, state) => {
     if (listObj) {
-      console.log(listObj);
-
       Object.keys(listObj).forEach((key) => {
         const stateObject = () => {
           const obj = {};
@@ -65,8 +63,8 @@ class MovieItem extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.authenticated){
-        this.processLists(nextProps.watchLater, nextProps.id, 'toWatchLater');
-        this.processLists(nextProps.favorites, this.props.id, 'favorited');
+      this.processLists(nextProps.watchLater, nextProps.id, 'toWatchLater');
+      this.processLists(nextProps.favorites, this.props.id, 'favorited');
     }
   }
 
