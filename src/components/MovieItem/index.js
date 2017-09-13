@@ -43,11 +43,9 @@ class MovieItem extends Component {
         const stateObject = () => {
           const obj = {};
           obj[state] = true;
-          console.log(obj);
           return obj;
         }
         if (listObj[key] === id) {
-          console.log(id);
           this.setState(stateObject);
         }
       });
