@@ -13,6 +13,7 @@ import Main from './components/Main';
 import Discover from './components/Discover';
 import SearchResults from './components/SearchResults';
 import Movie from './components/Movie';
+import UserLists from './components/UserLists';
 import NotificationSystem from 'react-notification-system';
 
 import './App.css';
@@ -208,6 +209,25 @@ class App extends Component {
                       onFavoriteDeselect={selectedMovie => this.removeFromUserList(selectedMovie)}
                       favorites={this.state.favorites}
                       watchLater={this.state.watchLater} />)}
+                />
+                <Route exact path="/favorites"
+                  render={()=><UserLists
+                    title="Favorites"
+                    authenticated={this.state.authenticated}
+                    addToList={this.addToUserList}
+                    removeFromList={this.removeFromUserList}
+                    favorites={this.state.favorites}
+                    watchLater={this.state.watchLater}  />}
+                />
+
+                <Route exact path="/watch-later"
+                  render={()=><UserLists
+                    title="Watch Later"
+                    authenticated={this.state.authenticated}
+                    addToList={this.addToUserList}
+                    removeFromList={this.removeFromUserList}
+                    favorites={this.state.favorites}
+                    watchLater={this.state.watchLater}  />}
                 />
               </div>
           </div>
