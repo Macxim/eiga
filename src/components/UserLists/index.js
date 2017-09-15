@@ -27,7 +27,6 @@ class UserList extends Component {
   }
 
   getAllMoviesFromList = (list) => {
-    const userListMovies = [];
     const moviesIdsArr = this.getMoviesIds(list);
     const promises = moviesIdsArr.map(item => this.getMovieObject(item));
     Promise.all(promises).then(userListMovies =>
@@ -46,6 +45,7 @@ class UserList extends Component {
       case 'Watch Later':
         this.getAllMoviesFromList(nextProps.watchLater)
         break;
+      default:
     }
   }
 
@@ -57,6 +57,7 @@ class UserList extends Component {
       case 'Watch Later':
         this.getAllMoviesFromList(this.props.watchLater)
         break;
+      default:
     }
   }
 
