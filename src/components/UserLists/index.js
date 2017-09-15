@@ -49,6 +49,17 @@ class UserList extends Component {
     }
   }
 
+  componentDidMount = () => {
+    switch (this.props.title) {
+      case 'Favorites':
+        this.getAllMoviesFromList(this.props.favorites)
+        break;
+      case 'Watch Later':
+        this.getAllMoviesFromList(this.props.watchLater)
+        break;
+    }
+  }
+
   render () {
 
     const { movies } = this.state;
