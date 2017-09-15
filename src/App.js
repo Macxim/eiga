@@ -70,7 +70,9 @@ class App extends Component {
 
   resetFilters = () => this.setState(this.defaultState)
 
-  notificationOnCompleteListsActions = () => {
+  addToUserList = (selectedMovie, userList) => {
+    const userUid = app.auth().currentUser.uid;
+
     const onComplete = (error) => {
       if (error) {
         this._notificationSystem.addNotification({
@@ -84,22 +86,31 @@ class App extends Component {
         });
       }
     };
-    return onComplete;
-  }
-
-  addToUserList = (selectedMovie, userList) => {
-    const userUid = app.auth().currentUser.uid;
 
     app.database().ref(userUid).child(userList).update({
       [selectedMovie]: selectedMovie
-    }, this.notificationOnCompleteListsActions());
+    }, onComplete);
     this.handleUserListsState(userUid, userList, userList);
   }
 
   removeFromUserList = (selectedMovie, userList) => {
     const userUid = app.auth().currentUser.uid;
 
-    app.database().ref(userUid).child(userList).child(selectedMovie).remove(this.notificationOnCompleteListsAction());
+    const onComplete = (error) => {
+      if (error) {
+        this._notificationSystem.addNotification({
+          message: 'Oh no! An error ocurred. 😨',
+          level: 'error'
+        });
+      } else {
+        this._notificationSystem.addNotification({
+          message: 'Movie succesfully removed. 😉',
+          level: 'success'
+        });
+      }
+    };
+
+    app.database().ref(userUid).child(userList).child(selectedMovie).remove(onComplete);
     this.handleUserListsState(userUid, userList, userList);
   }
 
